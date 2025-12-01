@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebRTC Parent Viewer</title>
+</head>
+<body>
+    <h1>WebRTC Parent Viewer</h1>
+    <video id="remoteVideo" autoplay playsinline></video>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = {
+            // Your Firebase config here
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const pc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+        const remoteVideo = document.getElementById('remoteVideo');
+
+        pc.ontrack = (event) => {
+            remoteVideo.srcObject = event.streams[0];
+        };
+
+        async function connect(sessionId) {
+            const signalingRef = db.collection('webrtc_signaling').doc(sessionId);
+            const offerDoc = await signalingRef.get();
+            const offer = offerDoc.data().offer;
+
+            pc.onicecandidate = (event) => {
+                event.candidate && signalingRef.collection('iceCandidatesFromParent').add(event.candidate.toJSON());
+            };
+
+            await pc.setRemoteDescription(new RTCSessionDescription(offer));
+            const answer = await pc.createAnswer();
+            await pc.setLocalDescription(answer);
+
+            const answerData = {
+                type: answer.type,
+                sdp: answer.sdp,
+            };
+
+            await signalingRef.update({ answer: answerData });
+
+            signalingRef.collection('iceCandidatesFromChild').onSnapshot((snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === 'added') {
+                        const candidate = new RTCIceCandidate(change.doc.data());
+                        pc.addIceCandidate(candidate);
+                    }
+                });
+            });
+        }
+
+        // Call connect(sessionId) with the session ID from the React Native app
+    </script>
+</body>
+</html>

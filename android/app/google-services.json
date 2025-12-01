@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "405933001157",
+    "firebase_url": "https://guardianeye-gomp3-default-rtdb.firebaseio.com",
+    "project_id": "guardianeye-gomp3",
+    "storage_bucket": "guardianeye-gomp3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405933001157:android:c01955ef4a53b4bd19e3ac",
+        "android_client_info": {
+          "package_name": "com.guardian.child"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-tPNLBb39biB33bEJGYeK8U8pYIrqNKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

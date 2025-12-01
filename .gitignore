@@ -1,0 +1,17 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Expo
+.expo/
+dist/
+
+# Misc
+.env
+.idea/
+.vscode/
+
+# Ignored Folders
+jdk-11.0.2/
+child360-app/

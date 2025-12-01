@@ -1,0 +1,55 @@
+firestore
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Define a constant for the super admin UID
+    function isSuperAdmin() {
+      // Replace 'YOUR_SUPER_ADMIN_UID' with the actual UID of your super admin account
+      return request.auth.uid == 'YOUR_SUPER_ADMIN_UID';
+    }
+
+    // Rules for the 'users' collection
+    match /users/{uid} {
+      allow read, write: if request.auth.uid == uid || isSuperAdmin();
+
+      // Rules for the 'children' subcollection under a specific user (parent)
+      match /children/{childUid} {
+        allow read: if request.auth.uid == uid || isSuperAdmin() || exists(/databases/$(database)/documents/children/$(childUid)/meta) && get(/databases/$(database)/documents/children/$(childUid)/meta).data.parentUid == request.auth.uid;
+        allow create, update, delete: if false; // Only Cloud Functions (admin SDK) can write
+      }
+
+      // Rules for the 'payments' subcollection (collection group example)
+      match /payments/{paymentId} {
+        allow read: if request.auth.uid == uid || isSuperAdmin();
+        allow write: if request.auth.uid == uid || isSuperAdmin();
+      }
+
+      // Rules for the 'consent' subcollection under a specific user (child)
+      match /consent/{docId} {
+        // Child can write their own consent, parent (owner of the child) can also read/write
+        allow read: if request.auth.uid == uid || isSuperAdmin() || get(/databases/$(database)/documents/children/$(request.auth.uid)/meta).data.parentUid == uid;
+        allow write: if request.auth.uid == uid || isSuperAdmin();
+      }
+    }
+
+    // Rules for the 'children' top-level collection (meta-data about child devices)
+    match /children/{childUid} {
+      allow read: if request.auth.uid == childUid || isSuperAdmin() || get(/databases/$(database)/documents/children/$(childUid)/meta).data.parentUid == request.auth.uid;
+      allow create, update, delete: if false; // Only Cloud Functions (admin SDK) can write
+    }
+
+    // Rules for the 'pairingRequests' collection
+    match /pairingRequests/{nonce} {
+      allow read, write: if isSuperAdmin();
+      allow create: if false;
+      allow update: if false;
+    }
+
+    // Rules for the 'commands' collection
+    match /commands/{childUid} {
+      allow read: if request.auth.uid == childUid || isSuperAdmin();
+      allow write: if request.auth.uid != null && (request.resource.data.childUid == childUid || get(/databases/$(database)/documents/users/$(request.auth.uid)/children/$(childUid)).exists());
+    }
+  }
+}
