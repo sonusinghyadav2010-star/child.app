@@ -1,17 +1,7 @@
-# Node
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# Expo
-.expo/
-dist/
-
-# Misc
+# Environments
 .env
-.idea/
-.vscode/
+.env.backup
 
-# Ignored Folders
-jdk-11.0.2/
-child360-app/
+# Google Services
+google-services.json
+node_modules

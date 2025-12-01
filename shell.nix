@@ -3,6 +3,7 @@
 pkgs.mkShell {
   buildInputs = with pkgs; [
     jdk
+    git-lfs
   ];
 
   shellHook = ''
