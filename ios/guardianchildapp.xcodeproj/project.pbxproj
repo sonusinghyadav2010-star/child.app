@@ -259,13 +259,13 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.guardianchildapp";
-				PRODUCT_NAME = "guardianchildapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gurdianeye.app.guardianchild360";
+				PRODUCT_NAME = "guardianchild";
 				SWIFT_OBJC_BRIDGING_HEADER = "guardianchildapp/guardianchildapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1";
 				CODE_SIGN_ENTITLEMENTS = guardianchildapp/guardianchildapp.entitlements;
 			};
 			name = Debug;
@@ -288,12 +288,12 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.guardianchildapp";
-				PRODUCT_NAME = "guardianchildapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gurdianeye.app.guardianchild360";
+				PRODUCT_NAME = "guardianchild";
 				SWIFT_OBJC_BRIDGING_HEADER = "guardianchildapp/guardianchildapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1";
 				CODE_SIGN_ENTITLEMENTS = guardianchildapp/guardianchildapp.entitlements;
 			};
 			name = Release;

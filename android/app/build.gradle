@@ -31,9 +31,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.guardian.child'
+    namespace 'com.gurdian.child'
     defaultConfig {
-        applicationId 'com.guardian.child'
+        applicationId 'com.gurdian.child'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

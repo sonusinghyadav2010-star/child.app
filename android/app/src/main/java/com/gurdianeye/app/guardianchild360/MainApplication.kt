@@ -1,5 +1,5 @@
 
-package com.guardian.child
+package com.gurdianeye.app.guardianchild360
 
 import android.app.Application
 import android.content.res.Configuration
@@ -13,21 +13,21 @@ import com.facebook.react.common.ReleaseLevel
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint
 import com.facebook.react.defaults.DefaultReactNativeHost
 
-import com.guardian.child.webrtc.WebRTCModulePackage
-import com.guardian.child.MyAppPackage
-import com.guardian.child.ForegroundServicePackage
-import com.guardian.child.CameraPackage
-import com.guardian.child.LocationPackage
-import com.guardian.child.PermissionsPackage
-import com.guardian.child.AudioPackage
-import com.guardian.child.FirestorePackage
-import com.guardian.child.SharedPreferencesPackage
-import com.guardian.child.UsageStatsPackage
-import com.guardian.child.CommandExecutorPackage
-import com.guardian.child.CallLogPackage
-import com.guardian.child.SmsPackage
-import com.guardian.child.DeviceDetailsPackage
-import com.guardian.child.GeofencePackage
+import com.gurdianeye.app.guardianchild360.webrtc.WebRTCModulePackage
+import com.gurdianeye.app.guardianchild360.MyAppPackage
+import com.gurdianeye.app.guardianchild360.ForegroundServicePackage
+import com.gurdianeye.app.guardianchild360.CameraPackage
+import com.gurdianeye.app.guardianchild360.LocationPackage
+import com.gurdianeye.app.guardianchild360.PermissionsPackage
+import com.gurdianeye.app.guardianchild360.AudioPackage
+import com.gurdianeye.app.guardianchild360.FirestorePackage
+import com.gurdianeye.app.guardianchild360.SharedPreferencesPackage
+import com.gurdianeye.app.guardianchild360.UsageStatsPackage
+import com.gurdianeye.app.guardianchild360.CommandExecutorPackage
+import com.gurdianeye.app.guardianchild360.CallLogPackage
+import com.gurdianeye.app.guardianchild360.SmsPackage
+import com.gurdianeye.app.guardianchild360.DeviceDetailsPackage
+import com.gurdianeye.app.guardianchild360.GeofencePackage
 
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper

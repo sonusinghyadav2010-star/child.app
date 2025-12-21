@@ -22,6 +22,15 @@
       "expo-barcode-scanner",
       "expo-router"
     ],
-    "owner": "gurdianeye.app"
+    "owner": "gurdianeye.app",
+    "android": {
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
+      "package": "com.guardian.child"
+    },
+    "ios": {
+      "bundleIdentifier": "com.gurdianeye.app.guardianchild360"
+    }
   }
 }

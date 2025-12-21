@@ -1,5 +1,5 @@
 
-package com.guardian.child;
+package com.gurdianeye.app.guardianchild360;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,5 +1,5 @@
 
-package com.guardian.child;
+package com.gurdianeye.app.guardianchild360;
 
 import android.app.Service;
 import android.content.Context;
@@ -12,9 +12,9 @@ import android.os.IBinder;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.util.Log;
-import com.guardian.child.webrtc.WebRTCModule;
+import com.gurdianeye.app.guardianchild360.webrtc.WebRTCModule;
 import com.facebook.react.bridge.Promise;
-import com.guardian.child.services.ForegroundService;
+import com.gurdianeye.app.guardianchild360.services.ForegroundService;
 
 public class CommandService extends Service {
 

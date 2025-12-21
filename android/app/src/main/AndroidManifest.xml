@@ -44,6 +44,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="guardianchild360"/>
+        <data android:scheme="exp+guardian-child360"/>
       </intent-filter>
     </activity>
     <receiver android:name=".BootReceiver" android:enabled="true" android:exported="true">

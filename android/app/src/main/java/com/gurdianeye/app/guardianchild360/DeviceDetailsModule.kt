@@ -1,5 +1,5 @@
 
-package com.guardian.child
+package com.gurdianeye.app.guardianchild360
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -31,7 +31,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
 }
 expoAutolinking.useExpoModules()
 
-rootProject.name = 'guardian-childapp'
+rootProject.name = 'guardian-child'
 
 expoAutolinking.useExpoVersionCatalog()
 

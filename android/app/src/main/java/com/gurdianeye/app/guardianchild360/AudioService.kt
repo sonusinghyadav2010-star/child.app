@@ -1,4 +1,4 @@
-package com.guardian.child
+package com.gurdianeye.app.guardianchild360
 
 import android.app.Service
 import android.content.Intent
