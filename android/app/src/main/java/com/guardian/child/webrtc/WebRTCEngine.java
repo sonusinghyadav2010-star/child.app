@@ -1,4 +1,4 @@
-package com.guardian.child.webrtc;
+package com.guardianchildapp.webrtc;
 
 import android.content.Intent;
 import android.media.projection.MediaProjection;

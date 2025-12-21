@@ -1,89 +1,55 @@
 
 package com.guardian.child
 
-import android.app.AppOpsManager
 import android.app.usage.UsageStatsManager
 import android.content.Context
-import android.content.pm.PackageManager
-import com.facebook.react.bridge.*
-import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReactContextBaseJavaModule
+import com.facebook.react.bridge.ReactMethod
+import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.WritableNativeMap
+import com.facebook.react.bridge.WritableNativeArray
+import java.util.Calendar
 
 class UsageStatsModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
-    override fun getName() = "UsageStatsModule"
-
-    private val db = FirebaseFirestore.getInstance()
-
-    @ReactMethod
-    fun checkUsageStatsPermission(promise: Promise) {
-        val appOps = reactApplicationContext.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
-        val mode = appOps.checkOpNoThrow(
-            AppOpsManager.OPSTR_GET_USAGE_STATS,
-            android.os.Process.myUid(),
-            reactApplicationContext.packageName
-        )
-        promise.resolve(mode == AppOpsManager.MODE_ALLOWED)
+    override fun getName(): String {
+        return "UsageStatsModule"
     }
 
     @ReactMethod
-    fun getRecentApps(promise: Promise) {
+    fun getUsageStats(promise: Promise) {
         val usageStatsManager = reactApplicationContext.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-        val endTime = System.currentTimeMillis()
-        val beginTime = endTime - 1000 * 60 * 60 * 24 // 24 hours
-        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, beginTime, endTime)
-        val recentApps = Arguments.createArray()
-        usageStatsList.sortByDescending { it.lastTimeUsed }
-        for (usageStats in usageStatsList) {
-            val app = Arguments.createMap()
-            app.putString("packageName", usageStats.packageName)
-            app.putDouble("lastTimeUsed", usageStats.lastTimeUsed.toDouble())
-            recentApps.pushMap(app)
-        }
-        promise.resolve(recentApps)
-    }
-    
-    @ReactMethod
-    fun getUsageDuration(promise: Promise) {
-        val usageStatsManager = reactApplicationContext.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-        val endTime = System.currentTimeMillis()
-        val beginTime = endTime - 1000 * 60 * 60 * 24 // 24 hours
-        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, beginTime, endTime)
-        val appUsage = Arguments.createMap()
-        for (usageStats in usageStatsList) {
-            appUsage.putInt(usageStats.packageName, (usageStats.totalTimeInForeground / 1000).toInt())
-        }
-        promise.resolve(appUsage)
-    }
+        val calendar = Calendar.getInstance()
+        val endTime = calendar.timeInMillis
+        calendar.add(Calendar.DAY_OF_YEAR, -1) // Collect stats for the last 24 hours
+        val startTime = calendar.timeInMillis
 
-    @ReactMethod
-    fun uploadUsageStats(deviceId: String, promise: Promise) {
-        if (deviceId.isEmpty()) {
-            promise.reject("DEVICE_ID_NULL", "Device ID is null or empty")
+        val stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
+
+        if (stats == null || stats.isEmpty()) {
+            promise.resolve(WritableNativeArray())
             return
         }
-        val usageStatsManager = reactApplicationContext.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-        val endTime = System.currentTimeMillis()
-        val beginTime = endTime - 1000 * 60 * 60 * 24 
-        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, beginTime, endTime)
-        val usageData = mutableMapOf<String, Any>()
-        for (usageStats in usageStatsList) {
-            if(usageStats.totalTimeInForeground > 0) {
-                val appData = mutableMapOf<String, Any>()
-                appData["totalTimeInForeground"] = usageStats.totalTimeInForeground
-                appData["lastTimeUsed"] = usageStats.lastTimeUsed
-                usageData[usageStats.packageName] = appData
-            }
+
+        val appUsageMap = mutableMapOf<String, Long>()
+
+        for (usageStats in stats) {
+            val appName = usageStats.packageName
+            val timeInForeground = usageStats.totalTimeInForeground
+            appUsageMap[appName] = (appUsageMap[appName] ?: 0) + timeInForeground
         }
         
-        val data = hashMapOf(
-            "timestamp" to System.currentTimeMillis(),
-            "usageStats" to usageData
-        )
+        val result = WritableNativeArray()
+        for ((appName, timeInForeground) in appUsageMap) {
+             if (timeInForeground > 0) {
+                val appData = WritableNativeMap()
+                appData.putString("appName", appName)
+                appData.putDouble("timeInForeground", timeInForeground.toDouble())
+                result.pushMap(appData)
+             }
+        }
 
-        db.collection("childDevices").document(deviceId).collection("monitoring")
-            .add(data)
-            .addOnSuccessListener { promise.resolve("Usage stats uploaded successfully") }
-            .addOnFailureListener { e -> promise.reject("FIRESTORE_ERROR", "Error uploading usage stats", e) }
+        promise.resolve(result)
     }
 }

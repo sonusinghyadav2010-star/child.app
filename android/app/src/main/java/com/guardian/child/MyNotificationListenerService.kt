@@ -1,4 +1,4 @@
-package com.guardian.child
+package com.guardianchildapp
 
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification

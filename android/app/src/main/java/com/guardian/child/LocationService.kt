@@ -1,4 +1,4 @@
-package com.guardian.child
+package com.guardianchildapp
 
 import android.app.Service
 import android.content.Intent

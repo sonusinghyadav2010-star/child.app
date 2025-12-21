@@ -12,10 +12,37 @@ import android.os.IBinder;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.util.Log;
+import com.guardian.child.webrtc.WebRTCModule;
+import com.facebook.react.bridge.Promise;
+import com.guardian.child.services.ForegroundService;
 
 public class CommandService extends Service {
 
     private static final String TAG = "CommandService";
+    private WebRTCModule webRTCModule;
+
+    // A simple promise for internal calls
+    private final Promise internalPromise = new Promise() {
+        @Override
+        public void resolve(Object value) {
+            Log.d(TAG, "Internal promise resolved");
+        }
+
+        @Override
+        public void reject(String code, String message) {
+            Log.e(TAG, "Internal promise rejected: " + code + ", " + message);
+        }
+
+        @Override
+        public void reject(String code, Throwable throwable) {
+            Log.e(TAG, "Internal promise rejected: " + code, throwable);
+        }
+
+        @Override
+        public void reject(String code, String message, Throwable throwable) {
+            Log.e(TAG, "Internal promise rejected: " + code + ", " + message, throwable);
+        }
+    };
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -28,9 +55,48 @@ public class CommandService extends Service {
     }
 
     private void executeCommand(String command) {
+        if (webRTCModule == null) {
+             try {
+                MainApplication application = (MainApplication) getApplication();
+                webRTCModule = application.getReactNativeHost().getReactInstanceManager().getCurrentReactContext().getNativeModule(WebRTCModule.class);
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to get WebRTCModule", e);
+                return;
+            }
+        }
+        
+        if (webRTCModule == null) {
+            Log.e(TAG, "WebRTCModule is not available");
+            return;
+        }
+
+        ForegroundService foregroundService = ForegroundService.getInstance();
+
         switch (command) {
-            case "takePhoto":
-                takePhoto();
+            case "startCamera":
+                webRTCModule.startCameraStream(internalPromise);
+                if (foregroundService != null) foregroundService.showMonitoringNotification();
+                break;
+            case "stopCamera":
+                webRTCModule.stopCameraStream(internalPromise);
+                if (foregroundService != null) foregroundService.showDefaultNotification();
+                break;
+            case "switchCamera":
+                webRTCModule.switchCamera(internalPromise);
+                break;
+            case "startScreen":
+                webRTCModule.startScreenStream(internalPromise);
+                if (foregroundService != null) foregroundService.showMonitoringNotification();
+                break;
+            case "stopScreen":
+                webRTCModule.stopScreenStream(internalPromise);
+                if (foregroundService != null) foregroundService.showDefaultNotification();
+                break;
+            case "muteAudio":
+                webRTCModule.toggleAudio(false, internalPromise);
+                break;
+            case "unmuteAudio":
+                webRTCModule.toggleAudio(true, internalPromise);
                 break;
             case "playAlarm":
                 playAlarm();
@@ -40,18 +106,6 @@ public class CommandService extends Service {
                 break;
             default:
                 Log.w(TAG, "Unsupported command: " + command);
-        }
-    }
-
-    private void takePhoto() {
-        // This is a simplified version. A real implementation would be more complex.
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // The following line will crash the app because we don't have an activity
-            // context. This needs to be handled in a more sophisticated way, probably
-            // by creating a transparent activity.
-            // getApplicationContext().startActivity(takePictureIntent);
-            Log.d(TAG, "Pretending to take a photo.");
         }
     }
 

@@ -1,4 +1,4 @@
-package com.guardian.child
+package com.guardianchildapp
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule

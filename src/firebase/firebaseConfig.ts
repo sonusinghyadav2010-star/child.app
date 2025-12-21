@@ -2,7 +2,7 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
-import { getMessaging, connectMessagingEmulator } from 'firebase/messaging';
+import { getMessaging } from 'firebase/messaging';
 
 // Optionally import and configure other Firebase services if needed
 // import { getAnalytics } from 'firebase/analytics';
@@ -37,7 +37,6 @@ if (__DEV__) {
       connectAuthEmulator(auth, 'http://localhost:9099');
       connectFirestoreEmulator(db, 'localhost', 8080);
       connectStorageEmulator(storage, 'localhost', 9199);
-      connectMessagingEmulator(messaging, 'localhost', 5000); // Messaging emulator usually runs on 5000
     } catch (e) {
       console.warn('Firebase emulator connection failed (this is expected if emulators are not running):', e);
     }

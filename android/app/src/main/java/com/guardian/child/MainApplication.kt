@@ -1,3 +1,4 @@
+
 package com.guardian.child
 
 import android.app.Application
@@ -13,6 +14,20 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint
 import com.facebook.react.defaults.DefaultReactNativeHost
 
 import com.guardian.child.webrtc.WebRTCModulePackage
+import com.guardian.child.MyAppPackage
+import com.guardian.child.ForegroundServicePackage
+import com.guardian.child.CameraPackage
+import com.guardian.child.LocationPackage
+import com.guardian.child.PermissionsPackage
+import com.guardian.child.AudioPackage
+import com.guardian.child.FirestorePackage
+import com.guardian.child.SharedPreferencesPackage
+import com.guardian.child.UsageStatsPackage
+import com.guardian.child.CommandExecutorPackage
+import com.guardian.child.CallLogPackage
+import com.guardian.child.SmsPackage
+import com.guardian.child.DeviceDetailsPackage
+import com.guardian.child.GeofencePackage
 
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
@@ -25,6 +40,7 @@ class MainApplication : Application(), ReactApplication {
         override fun getPackages(): List<ReactPackage> =
             PackageList(this).packages.apply {
               // Packages that cannot be autolinked yet can be added manually here, for example:
+              add(MyAppPackage()) // <<<--- ADDED HERE
               add(ForegroundServicePackage())
               add(CameraPackage())
               add(LocationPackage())
@@ -35,6 +51,10 @@ class MainApplication : Application(), ReactApplication {
               add(UsageStatsPackage())
               add(CommandExecutorPackage())
               add(WebRTCModulePackage())
+              add(CallLogPackage())
+              add(SmsPackage())
+              add(DeviceDetailsPackage())
+              add(GeofencePackage()) // <<<--- ADDED HERE
             }
 
           override fun getJSMainModuleName(): String = ".expo/.virtual-metro-entry"

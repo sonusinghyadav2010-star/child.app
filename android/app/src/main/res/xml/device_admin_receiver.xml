@@ -1,5 +1,6 @@
 <device-admin>
     <uses-policies>
-        <prevent-app-uninstall />
+        <force-lock />
+        <wipe-data />
     </uses-policies>
 </device-admin>

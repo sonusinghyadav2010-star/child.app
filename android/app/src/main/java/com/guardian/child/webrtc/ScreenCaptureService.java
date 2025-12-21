@@ -1,4 +1,4 @@
-package com.guardian.child.webrtc;
+package com.guardianchildapp.webrtc;
 
 import android.app.Activity;
 import android.app.Notification;
