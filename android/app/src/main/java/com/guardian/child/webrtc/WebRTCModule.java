@@ -1,4 +1,4 @@
-package com.gurdianeye.app.guardianchild360.webrtc;
+package com.guardian.child.webrtc;
 
 import android.app.Activity;
 import android.content.Intent;

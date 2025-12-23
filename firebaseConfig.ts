@@ -1,6 +1,7 @@
 
 import { initializeApp, getApp, getApps } from 'firebase/app';
-import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { initializeAuth } from 'firebase/auth';
+import { getReactNativePersistence } from 'firebase/auth/react-native';
 import { getFirestore } from 'firebase/firestore';
 import { getMessaging } from 'firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,12 +27,11 @@ if (!getApps().length) {
   app = getApp();
 }
 
-// Conditionally initialize messaging to prevent SSR errors on web
-if (Platform.OS === 'web' && typeof window !== 'undefined') {
+// Conditionally initialize messaging for native platforms only
+// This prevents the bundler from crashing in a non-browser environment.
+if (Platform.OS === 'android' || Platform.OS === 'ios') {
   messaging = getMessaging(app);
 }
-// For native, you might initialize it differently or handle it within a native module
-// For now, this solves the web build crash.
 
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),

@@ -1,4 +1,4 @@
-package com.gurdianeye.app.guardianchild360
+package com.guardian.child
 
 import android.content.Intent
 import com.facebook.react.bridge.ReactApplicationContext

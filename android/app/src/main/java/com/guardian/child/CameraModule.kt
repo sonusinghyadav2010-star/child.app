@@ -1,4 +1,4 @@
-package com.gurdianeye.app.guardianchild360
+package com.guardian.child
 
 import android.Manifest
 import android.app.Activity
