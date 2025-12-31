@@ -1,5 +1,5 @@
 
-package com.guardianchildapp;
+package com.guardian.child;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.guardianchildapp.webrtc.WebRTCModule;
+import com.guardian.child.webrtc.WebRTCModule;
 
 public class ScreenShareModule extends ReactContextBaseJavaModule {
 

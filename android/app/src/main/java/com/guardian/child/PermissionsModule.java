@@ -1,4 +1,4 @@
-package com.guardianchildapp.permissions;
+package com.guardian.child;
 
 import android.Manifest;
 import android.app.admin.DevicePolicyManager;
@@ -18,7 +18,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
-import com.guardianchildapp.DeviceAdminReceiver;
+import com.guardian.child.MyDeviceAdminReceiver;
 
 public class PermissionsModule extends ReactContextBaseJavaModule implements ActivityEventListener {
 
@@ -80,7 +80,7 @@ public class PermissionsModule extends ReactContextBaseJavaModule implements Act
 
     private boolean isDeviceAdminGranted() {
         DevicePolicyManager dpm = (DevicePolicyManager) getReactApplicationContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
-        ComponentName deviceAdmin = new ComponentName(getReactApplicationContext(), DeviceAdminReceiver.class);
+        ComponentName deviceAdmin = new ComponentName(getReactApplicationContext(), MyDeviceAdminReceiver.class);
         return dpm.isAdminActive(deviceAdmin);
     }
 
@@ -98,7 +98,7 @@ public class PermissionsModule extends ReactContextBaseJavaModule implements Act
 
     @ReactMethod
     public void requestDeviceAdminPermission() {
-        ComponentName deviceAdmin = new ComponentName(getReactApplicationContext(), DeviceAdminReceiver.class);
+        ComponentName deviceAdmin = new ComponentName(getReactApplicationContext(), MyDeviceAdminReceiver.class);
         Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
         intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, deviceAdmin);
         intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Admin permission is required for remote lock and wipe.");

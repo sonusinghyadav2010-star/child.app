@@ -1,4 +1,4 @@
-package com.guardianchildapp.services;
+package com.guardian.child.services;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

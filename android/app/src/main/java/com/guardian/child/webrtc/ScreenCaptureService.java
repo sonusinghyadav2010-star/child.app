@@ -1,4 +1,4 @@
-package com.guardianchildapp.webrtc;
+package com.guardian.child.webrtc;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -14,8 +14,21 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactApplicationContext;
+
 public class ScreenCaptureService extends Service {
     private static final String CHANNEL_ID = "ScreenCaptureServiceChannel";
+    private static Promise promise;
+    private static ReactApplicationContext context;
+
+    public static void setPromise(Promise promise) {
+        ScreenCaptureService.promise = promise;
+    }
+
+    public static void setContext(ReactApplicationContext context) {
+        ScreenCaptureService.context = context;
+    }
 
     @Override
     public void onCreate() {

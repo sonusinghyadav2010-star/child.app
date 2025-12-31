@@ -1,15 +1,15 @@
-package com.guardianchildapp.usagestats;
+package com.guardian.child;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.guardianchildapp.usagestats.UsageStatsModule;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UsageStatsPackage implements ReactPackage {
+public class PermissionsPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
@@ -20,8 +20,7 @@ public class UsageStatsPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(
             ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new UsageStatsModule(reactContext));
+        modules.add(new PermissionsModule(reactContext));
         return modules;
     }
-
 }

@@ -1,5 +1,5 @@
 
-package com.guardianchildapp;
+package com.guardian.child;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

@@ -1,5 +1,5 @@
 
-package com.guardianchildapp;
+package com.guardian.child;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -26,7 +26,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.SetOptions;
-import com.guardianchildapp.webrtc.WebRTCService;
+import com.guardian.child.webrtc.WebRTCService;
 
 import java.util.HashMap;
 import java.util.Map;

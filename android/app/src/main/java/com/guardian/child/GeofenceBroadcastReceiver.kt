@@ -1,4 +1,4 @@
-package com.guardianchildapp
+package com.guardian.child
 
 import android.content.BroadcastReceiver
 import android.content.Context

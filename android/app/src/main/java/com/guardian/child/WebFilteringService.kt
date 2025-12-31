@@ -1,5 +1,5 @@
 
-package com.guardianchildapp
+package com.guardian.child
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo

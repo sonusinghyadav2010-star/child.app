@@ -1,4 +1,4 @@
-package com.guardianchildapp.services;
+package com.guardian.child.services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -9,7 +9,7 @@ import android.os.Build;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import com.guardianchildapp.R;
+import com.guardian.child.R;
 
 public class ForegroundService extends Service {
 

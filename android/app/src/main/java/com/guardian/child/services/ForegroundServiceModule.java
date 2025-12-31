@@ -1,4 +1,4 @@
-package com.guardianchildapp.services;
+package com.guardian.child.services;
 
 import android.content.Intent;
 import com.facebook.react.bridge.ReactApplicationContext;

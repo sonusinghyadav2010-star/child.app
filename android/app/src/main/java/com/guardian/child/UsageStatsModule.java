@@ -1,4 +1,4 @@
-package com.guardianchildapp.usagestats;
+package com.guardian.child;
 
 import android.app.AppOpsManager;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.guardianchildapp;
+package com.guardian.child;
 
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;

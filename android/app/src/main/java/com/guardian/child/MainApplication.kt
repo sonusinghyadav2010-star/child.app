@@ -1,4 +1,3 @@
-
 package com.guardian.child
 
 import android.app.Application
@@ -15,7 +14,7 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 
 import com.guardian.child.webrtc.WebRTCModulePackage
 import com.guardian.child.MyAppPackage
-import com.guardian.child.ForegroundServicePackage
+import com.guardian.child.services.ForegroundServicePackage
 import com.guardian.child.CameraPackage
 import com.guardian.child.LocationPackage
 import com.guardian.child.PermissionsPackage
